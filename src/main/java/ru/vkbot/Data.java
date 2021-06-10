@@ -35,6 +35,7 @@ public class Data {
                 }
             }
         }
+
         /*
         assert files != null;
         for (File file : files) {
@@ -155,7 +156,7 @@ public class Data {
                 res = Boolean.toString(cell.getBooleanCellValue()) ;
                 break;
             case Cell.CELL_TYPE_FORMULA:
-                res = cell.getCellFormula().toString() ;
+                res = cell.getCellFormula();
                 break;
             default:
                 break;
