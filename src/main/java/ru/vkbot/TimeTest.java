@@ -34,7 +34,7 @@ public class TimeTest {
         return semWeek;
     }
 
-    public static StringBuilder PrintDay(int k, StringBuilder otvet){
+    public static void PrintDay(int k, StringBuilder otvet){
         switch (k){
             case 0:
                 otvet.append("\uD83D\uDCC5 ПОНЕДЕЛЬНИК \n-------------------------------------------------------------\n");
@@ -52,10 +52,9 @@ public class TimeTest {
                 otvet.append("\uD83D\uDCC5 ПЯТНИЦА \n-------------------------------------------------------------\n");
                 break;
         }
-        return otvet;
     }
 
-    public static StringBuilder PrintTime(int i, StringBuilder otvet){
+    public static void PrintTime(int i, StringBuilder otvet){
         switch (i){
             case 0:
                 otvet.append("⏰ 8:30-10:00 ⏰\n");
@@ -70,6 +69,5 @@ public class TimeTest {
                 otvet.append("⏰ 14:00-15:30 ⏰\n");
                 break;
         }
-        return otvet;
     }
 }

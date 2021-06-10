@@ -35,13 +35,15 @@ public class Data {
                 }
             }
         }
-                    /* for (int i=0; i< files.length; i++){
-                        if (SearchGroup(group, files[i].toString())==1){
-                            gotovo = printExcel(files[i].toString());
-                            break;
-                        }
-                    }
-         */
+        /*
+        assert files != null;
+        for (File file : files) {
+            if (SearchGroup(group, file.toString())==1){
+             gotovo = printExcel(file.toString());
+             break;
+            }
+        }
+       */
         if (gotovo.equals(" ")){
             gotovo="не найдена";
         }
@@ -56,10 +58,9 @@ public class Data {
         Workbook wb = new XSSFWorkbook(fileInputStream);
         for (Row row : wb.getSheetAt(0)) {
             for (Cell cell : row) {
-                Cell r = cell;
                 if (getCellText(cell).equals(group)){
-                    indexRowGroup = r.getRowIndex();
-                    indexCellGroup = r.getColumnIndex();
+                    indexRowGroup = cell.getRowIndex();
+                    indexCellGroup = cell.getColumnIndex();
                     test = 1;
                     break;
                 }
@@ -75,22 +76,26 @@ public class Data {
         int indexRowPredmet = indexRowGroup + 2;
         int indexRowPredmetChet = indexRowGroup + 3;
         if(TimeTest.StudyWeek()!=-1) {
-            for (int i = 0; i < 6; i++) {
-                TimeTest.PrintDay(i, otvet);
-                for (int i1 = 0; i1 < 6; i1++) {
-                    if (TimeTest.StudyWeek()==1) {
-                        addNewPredmet = getAddNewPredmet1(wb1, addNewPredmet, indexRowPredmet, i1, indexRowPredmet + addNewPredmet);
-                    }
-                    if (TimeTest.StudyWeek()==2) {
-                        addNewPredmet = getAddNewPredmet1(wb1, addNewPredmet, indexRowPredmetChet, i1, indexRowPredmet + addNewPredmet);
-                    }
+            wtf1(wb1, addNewPredmet, indexRowPredmet, indexRowPredmetChet);
+        }
+        else {
+            otvet.append("Каникулы!");
+        }
+        return otvet.toString();
+    }
+
+    private void wtf1(Workbook wb1, int addNewPredmet, int indexRowPredmet, int indexRowPredmetChet) {
+        for (int i = 0; i < 6; i++) {
+            TimeTest.PrintDay(i, otvet);
+            for (int i1 = 0; i1 < 6; i1++) {
+                if (TimeTest.StudyWeek()==1) {
+                    addNewPredmet = getAddNewPredmet1(wb1, addNewPredmet, indexRowPredmet, i1, indexRowPredmet + addNewPredmet);
+                }
+                if (TimeTest.StudyWeek()==2) {
+                    addNewPredmet = getAddNewPredmet1(wb1, addNewPredmet, indexRowPredmetChet, i1, indexRowPredmet + addNewPredmet);
                 }
             }
         }
-        else {
-            otvet.append("Сейчас каникулы!");
-        }
-        return otvet.toString();
     }
 
     private int getAddNewPredmet1(Workbook wb1, int addNewPredmet, int indexRowPredmet, int i1, int i2) {
@@ -150,7 +155,7 @@ public class Data {
                 res = Boolean.toString(cell.getBooleanCellValue()) ;
                 break;
             case Cell.CELL_TYPE_FORMULA:
-                res = cell.getCellFormula();
+                res = cell.getCellFormula().toString() ;
                 break;
             default:
                 break;

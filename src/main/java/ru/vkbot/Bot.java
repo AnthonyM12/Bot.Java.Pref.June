@@ -45,6 +45,7 @@ public class Bot {
                         else if (message.getText().equals("Неделя")){
                             vk.messages().send(actor).message("Идет "+TimeTest.SemesterWeek()+" учебная неделя").userId(message.getFromId()).randomId(random.nextInt(10000)).execute();
                         }
+
                         else if (message.getText().toUpperCase().matches("^[А-Я]{3}[0-9]{1}[-]{1}[0-9]{2}$")) {
                             Data data = new Data();
                             vk.messages().send(actor).message(data.find(message.getText().toUpperCase())).userId(message.getFromId()).randomId(random.nextInt(10000)).execute();
